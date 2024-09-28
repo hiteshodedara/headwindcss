@@ -1,21 +1,25 @@
-// color.js
-
 /**
- * Generates CSS classes for text colors based on the provided colors.
- * @param {Array} colors - An array of color strings.
+ * Generates CSS classes for text colors based on the provided color objects.
+ * @param {Array} colors - An array of objects where keys are color names and values are color codes.
  * @returns {string} - Generated CSS string for text colors.
  */
 function generateColorClasses(colors) {
-    let css = '';
-    colors.forEach(color => {
-      // Remove '#' from the color for class naming
-      const className = color.replace('#', 'hex-');
+  let css = '';
+  
+  colors.forEach(colorObj => {
+    // Check if colorObj is a valid object and has entries
+    if (typeof colorObj === 'object' && colorObj !== null && !Array.isArray(colorObj)) {
+      const [name, value] = Object.entries(colorObj)[0]; // Get the name and value from each object
       css += `
-        .text-${className} { color: ${color}; }
+          .text-${name} { color: ${value}; }
       `;
-    });
-    return css;
-  }
-  
-  module.exports = generateColorClasses;
-  
+    } else {
+      console.warn(`Invalid color entry in config: ${JSON.stringify(colorObj)}. Expected an object with a name-value pair.`);
+    }
+  });
+
+  return css;
+}
+
+
+module.exports = generateColorClasses;

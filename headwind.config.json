@@ -1,0 +1,20 @@
+{
+  "sizes": [
+    { "small": "1rem" },
+    { "large": "5vh" },
+    "2rem",
+    "20px",
+    10
+  ],
+  "colors": [
+    { "red": "#FF0000" },
+    { "green": "#00FF00" },
+    { "blue": "#0000FF" }
+  ],
+  "PaddingGeneration": true,
+  "MarginGeneration": true,
+  "ColorGeneration": true,
+  "BackgroundGeneration": true,
+  "styleDirname": "dist",
+  "styleFilename": "style.css"
+}
