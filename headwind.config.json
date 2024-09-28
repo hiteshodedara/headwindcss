@@ -8,6 +8,8 @@
   ],
   "colors": [
     { "red": "#FF0000" },
+    { "gradient-red": "linear-gradient(to right, #FF0000, #FF7F7F)" },
+    { "transparent-green": "rgba(0, 255, 0, 0.5)" },
     { "green": "#00FF00" },
     { "blue": "#0000FF" }
   ],
@@ -15,6 +17,8 @@
   "MarginGeneration": true,
   "ColorGeneration": true,
   "BackgroundGeneration": true,
+  "FlexboxGeneration": true,
   "styleDirname": "dist",
-  "styleFilename": "style.css"
+  "styleFilename": "style.css",
+   "userProjectPath": "./files"
 }

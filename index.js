@@ -8,6 +8,8 @@ const generatePaddingClasses = require("./src/padding");
 const generateColorClasses = require("./src/color");
 const generateBackgroundColorClasses = require("./src/background");
 const CleanCSS = require("clean-css");
+const generateFlexboxClasses = require("./src/flexbox");
+const { cleanUnusedCSS } = require("./src/cleanUp");
 
 const configFileName = "headwind.config.json"; // Default config file name
 
@@ -19,8 +21,10 @@ const defaultConfig = {
   MarginGeneration: true,
   ColorGeneration: true,
   BackgroundGeneration: true,
+  FlexboxGeneration: true,
   styleDirname: "dist",
   styleFilename: "style.css",
+  userProjectPath: ""
 };
 
 // Function to create a default config file
@@ -80,6 +84,10 @@ async function createUtilityClasses(config = {}) {
     css += await generateBackgroundColorClasses(finalConfig.colors);
   }
 
+  if (finalConfig.FlexboxGeneration) { // Check if Flexbox generation is enabled
+    css += await generateFlexboxClasses(); // Generate Flexbox classes
+  }
+
   // Ensure that CSS is generated before proceeding
   if (css) {
     const minifiedCSS = minifyCSS(css); // Minify the generated CSS
@@ -104,11 +112,15 @@ async function createUtilityClasses(config = {}) {
 async function main() {
   const args = process.argv.slice(2); // Get command line arguments
 
+  const config = readConfigFile();
+
   if (args[0] === "init") {
     createConfigFile(); // Create the config file if 'init' is passed
   } else if (args[0] === "generate") {
     const config = readConfigFile(); // Read config
     await createUtilityClasses(config); // Generate utility classes using the config
+  } else if (args[0] === "cleanup") {
+    await cleanUnusedCSS(config.userProjectPath); // Call the cleanup function
   } else {
     console.log(
       'Unknown command. Please use "init" to create a config file or "generate" to generate CSS.'
