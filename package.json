@@ -1,0 +1,87 @@
+{
+  "name": "headwindscss",
+  "version": "1.0.1",
+  "description": "utilitiy class for css",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hiteshodedara/headwindcss.git"
+  },
+  "bin": {
+    "headwindcss": "index.js"
+  },
+  "files": [
+    "index.js",
+    "scripts/*",
+    "src/*",
+    "style-config.json"
+  ],
+  "keywords": [
+    "CSS",
+    "Utility",
+    "Library",
+    "Utility-First",
+    "CSS",
+    "Responsive",
+    "Design",
+    "Modular",
+    "CSS",
+    "CSS",
+    "Classes",
+    "Generator",
+    "Dynamic",
+    "CSS",
+    "Customizable",
+    "CSS",
+    "Margin",
+    "Utility",
+    "Classes",
+    "Padding",
+    "Utility",
+    "Classes",
+    "Color",
+    "Utility",
+    "Classes",
+    "Background",
+    "Utility",
+    "Classes",
+    "Minified",
+    "CSS",
+    "Custom",
+    "CSS",
+    "Configurations",
+    "Lightweight",
+    "CSS",
+    "Framework",
+    "Web",
+    "Development",
+    "Front-end",
+    "Development",
+    "CSS",
+    "Preprocessing",
+    "Single",
+    "Responsibility",
+    "CSS",
+    "Class-based",
+    "Styling",
+    "Web",
+    "Performance",
+    "Optimization"
+  ],
+  "author": "Hitesh Odedara",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hiteshodedara/headwindcss/issues"
+  },
+  "homepage": "https://github.com/hiteshodedara/headwindcss#readme",
+  "dependencies": {
+    "clean-css": "^5.3.3",
+    "prettier": "^3.3.3"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}
