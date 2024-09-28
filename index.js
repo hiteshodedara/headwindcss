@@ -53,46 +53,44 @@ function formatCSS(css) {
 }
 
 // Function to create utility classes
+// Function to create utility classes
 async function createUtilityClasses(config = {}) {
     const finalConfig = { ...defaultConfig, ...config };
     let css = '';
   
     // Generate CSS classes based on the final configuration
     if (finalConfig.MarginGeneration) {
-      css += await generateMarginClasses(finalConfig.sizes); // Ensure this function returns a string
+      css += await generateMarginClasses(finalConfig.sizes);
     }
     if (finalConfig.PaddingGeneration) {
-      css += await generatePaddingClasses(finalConfig.sizes); // Ensure this function returns a string
+      css += await generatePaddingClasses(finalConfig.sizes);
     }
     if (finalConfig.ColorGeneration) {
-      css += await generateColorClasses(finalConfig.colors); // Ensure this function returns a string
+      css += await generateColorClasses(finalConfig.colors);
     }
     if (finalConfig.BackgroundGeneration) {
-      css += await generateBackgroundColorClasses(finalConfig.colors); // Ensure this function returns a string
+      css += await generateBackgroundColorClasses(finalConfig.colors);
     }
   
     // Ensure that CSS is generated before proceeding
     if (css) {
       const minifiedCSS = minifyCSS(css); // Minify the generated CSS
       const formattedCSS = formatCSS(minifiedCSS); // Format the minified CSS
-      const outputPath = path.join(__dirname, 'dist', 'style.css');
+      const outputPath = path.join(process.cwd(), 'dist', 'style.css'); // Use process.cwd()
   
       // Ensure the 'dist' directory exists
-      if (!fs.existsSync('dist')) {
-        fs.mkdirSync('dist');
+      if (!fs.existsSync(path.dirname(outputPath))) {
+        fs.mkdirSync(path.dirname(outputPath), { recursive: true }); // Create directory if it doesn't exist
       }
-
-      formattedCSS .then(result => {
-        fs.writeFileSync(outputPath, result, 'utf8');
+      formattedCSS.then(data => {
+        fs.writeFileSync(outputPath, data, 'utf8'); // Write formatted CSS
         console.log('Formatted and minified CSS file generated at', outputPath);
-    })
-    .catch(error => {
-        console.error(error); // If the promise was rejected
-    })
+      });
     } else {
       console.log('No CSS generated. Please check your configuration.');
     }
   }
+  
   
 
 // Main function to handle CLI commands
