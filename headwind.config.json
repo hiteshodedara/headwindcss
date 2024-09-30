@@ -16,9 +16,20 @@
   "PaddingGeneration": true,
   "MarginGeneration": true,
   "ColorGeneration": true,
-  "BackgroundGeneration": true,
+  "BackgroundGeneration": false,
   "FlexboxGeneration": true,
   "styleDirname": "dist",
   "styleFilename": "style.css",
-   "userProjectPath": "./files"
+  "userProjectPath": "./files",
+  "ResponsiveGeneration": true,
+  "breakpoints": {
+    "sm": "640px",
+    "md": "768px"
+  },
+  "utilities": {
+    "margin": ["m", "mt", "mr", "mb", "ml", "mx", "my"],
+    "padding": ["p", "pt", "pr", "pb", "pl", "px", "py"],
+    "color": ["text"],
+    "background-color": ["bg"]
+  }
 }

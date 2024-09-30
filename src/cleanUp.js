@@ -1,5 +1,9 @@
 const fs = require("fs");
 const path = require("path");
+const simpleStyleClean = require("./utilities/simpleStyleClean");
+const filterMediaQueryCSS = require("./utilities/mediaQueryClean");
+const prettier = require("prettier");
+
 
 // Function to scan files for used CSS classes
 function scanForUsedClasses(dir) {
@@ -44,37 +48,53 @@ function scanForUsedClasses(dir) {
   return Array.from(usedClasses);
 }
 
-// Function to filter unused CSS classes
-function filterUnusedCSSClasses(cssFilePath, usedClasses) {
-    const cssContent = fs.readFileSync(cssFilePath, "utf8");
+function separateUsedClasses(classes) {
+  const classesWithColon = [];
+  const classesWithoutColon = [];
 
-    // Regular expression to match entire CSS rules including their properties
-    const cssRuleRegex = /\.([a-zA-Z0-9-_]+)\s*{([^}]*)}/g;
-
-    // Create a set for used classes for faster lookups
-    const usedClassesSet = new Set(usedClasses);
-
-    // Initialize an array to hold filtered CSS
-    const filteredCSS = [];
-    let match;
-
-    // Loop through all matched CSS rules
-    while ((match = cssRuleRegex.exec(cssContent)) !== null) {
-        const className = match[1]; // Get the class name from the match
-
-        // Check if the class is used
-        if (usedClassesSet.has(className)) {
-            // If the class is used, keep the entire rule
-            filteredCSS.push(match[0]);
-        }
+  classes.forEach((cls) => {
+    // Check if the class is not an empty string
+    if (cls.trim() === '') {
+      return; // Skip empty strings
     }
+    
+    if (cls.includes(":")) {
+      classesWithColon.push(cls);
+    } else {
+      classesWithoutColon.push(cls);
+    }
+  });
 
-    // Join the filtered CSS rules
-    const finalCSS = filteredCSS.join("\n").trim(); // Joining with new lines for better formatting
+  return { classesWithColon, classesWithoutColon };
+}
 
-    // Write the filtered CSS back to the file
-    fs.writeFileSync(cssFilePath, finalCSS, "utf8");
-    console.log(`Updated ${cssFilePath} by removing unused CSS classes.`);
+function formatCSS(css) {
+  return prettier.format(css, { parser: "css" });
+}
+
+// Function to filter unused CSS classes
+async function filterUnusedCSSClasses(cssFilePath, usedClasses) {
+  const { classesWithColon, classesWithoutColon } = separateUsedClasses(usedClasses);
+
+  try {
+      // Wait for both CSS processing functions to complete
+      const finalCSS = await simpleStyleClean(cssFilePath, classesWithoutColon);
+      const finalMediaQueryCSS = await filterMediaQueryCSS(cssFilePath, classesWithColon);
+
+      // Combine the results
+      const combinedCSS = `${finalCSS}\n${finalMediaQueryCSS}`;
+
+      // Format the combined CSS
+      const formattedCSS = formatCSS(combinedCSS);
+
+      formattedCSS.then((data) => {
+        fs.writeFileSync(cssFilePath, data, "utf8"); // Write formatted CSS
+        console.log(`Updated ${cssFilePath} with combined CSS.`);
+      });
+  } catch (error) {
+      // Handle any errors that occur during the process
+      console.error(`Error updating CSS file: ${error.message}`);
+  }
 }
 
 

@@ -1,16 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML File 2</title>
-    <link rel="stylesheet" href="../dist/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Styled Page</title>
+  <link rel="stylesheet" href="../../dist/style.css"> <!-- Link your CSS file -->
+  <style>
+    /* You can add inline styles for illustration, or link to your CSS file */
+  </style>
 </head>
-<body class="flex flex-column align-center">
+<body>
 
-    <header class="">
-        <h1>Another Page</h1>
-    </header>
+  <header class="bg-red text-white mh-large pa-small">
+    <h1 class="text-center">My Styled Web Page</h1>
+  </header>
+
+  <main class="mv-large mh-large">
+    <section class="flex flex-row justify-between align-center bg-blue ph-large pv-large">
+      <article class="flex flex-column align-start text-white">
+        <h2 class="text-gradient-red">Introduction</h2>
+        <p class="mt-small mb-small">
+          This is a simple demonstration of various styles such as margins, padding, colors, and flexbox.
+        </p>
+      </article>
+      <aside class="flex-column bg-green ph-small pv-small text-blue">
+        <h3>Important Notice</h3>
+        <p class="text-transparent-green">
+          Always remember to properly format your code and apply CSS best practices.
+        </p>
+      </aside>
+    </section>
+
+    <section class="mt-large mb-large text-center md:px-10">
+      <h2 class="text-red">Using Responsive Styles</h2>
+      <div class="flex flex-wrap justify-around">
+        <div class="sm:m-1rem md:m-2rem p-10 bg-red text-white">
+          Box 1
+        </div>
+        <div class="sm:m-1rem md:m-2rem p-10 bg-green text-white">
+          Box 2
+        </div>
+        <div class="sm:m-1rem md:m-2rem p-10 bg-blue text-white">
+          Box 3
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center pa-2 bg-gradient-red text-white">
+    <p>Footer Content &copy; 2024</p>
+  </footer>
 
 </body>
 </html>
